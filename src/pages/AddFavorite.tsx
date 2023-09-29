@@ -3,6 +3,7 @@ import { useDebouncedValue } from "../common/hooks/useDebounce";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { DangerButton, PrimaryButton } from "../common/components/Buttons";
+import { PackageItem } from "./Home/types";
 
 // Define the debounce function
 
@@ -10,7 +11,7 @@ const AddFavorite: React.FC = () => {
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
-  const [selectedPackage, setSelectedPackage] = useState(null);
+  const [selectedPackage, setSelectedPackage] = useState<any>(null);
   const [favReason, setFavReason] = useState("");
   const [error, setError] = useState("");
   const { debouncedValue, debouncing } = useDebouncedValue(searchQuery);
@@ -44,11 +45,31 @@ const AddFavorite: React.FC = () => {
       alert("Please select a package and provide a reason.");
       return;
     }
-    console.log("selected package", selectedPackage);
-    console.log("reason", favReason);
-    const newFavorite = {
+
+    const favPackageListString = localStorage.getItem("FAV_PACKAGE_LIST");
+    const favPackageList = favPackageListString ? JSON.parse(favPackageListString) : [];
+    
+    if (favPackageList.find((pkg: any) => pkg.name === selectedPackage.package.name)) {
+      alert("This package is already in your favorites list.");
+      return;
+    }
+
+    const newFavorite:PackageItem = {
       _id: Date.now().toString(),
+      name: selectedPackage.package.name,
+      description: selectedPackage.package.description,
+      npmLink: selectedPackage.package.links.npm,
+      reason:favReason
     };
+
+    favPackageList.push(newFavorite)
+    localStorage.setItem("FAV_PACKAGE_LIST", JSON.stringify(favPackageList));
+
+    setError("");
+    setFavReason("");
+    setSelectedPackage(null);
+
+    alert("Package added to favorites successfully!");
   };
 
   return (

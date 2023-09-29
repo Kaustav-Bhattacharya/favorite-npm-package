@@ -10,12 +10,12 @@ const Home: React.FC = () => {
     return storedData ? JSON.parse(storedData) : [];
   });
 
-  // return packageList.length > 0 ? (
-  //   <PackageList list={packageList} update={setPackageList} />
-  // ) : (
-  //   <NoFavs />
-  // );
-  return <NoFavs/> 
+  return packageList.length > 0 ? (
+    <PackageList list={packageList} update={setPackageList} />
+  ) : (
+    <NoFavs />
+  );
+
 };
 
 const NoFavs: React.FC = () => {
