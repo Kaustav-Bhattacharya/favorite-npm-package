@@ -6,7 +6,9 @@ interface PackageListProps {
 
   interface PackageItem {
     name: string;
-    version: string;
+    description:string,
+    npmLink?:string,
+    reason:string,
   }
 
 
