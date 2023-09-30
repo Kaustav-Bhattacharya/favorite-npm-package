@@ -1,13 +1,30 @@
-import React from "react";
+import React , { useState } from "react";
 import { PackageListProps } from "../types";
 import { PrimaryButton } from "../../../common/components/Buttons";
 import { Delete, Edit, Veiw } from "../../../common/components/Actions";
 import { useNavigate } from "react-router-dom";
+import { ConfirmationModal } from "../../../common/components/ConfirmationModal";
 
 const PackageList: React.FC<PackageListProps> = ({ list, update }) => {
   const navigate = useNavigate();
-  const onDelete = (_id: string) => {
-    update(_id);
+
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [selectedPackageId, setSelectedPackageId] = useState<string | null>(null);
+
+  const onDelete = (id: string) => {
+    setSelectedPackageId(id);
+    setShowDeleteModal(true);
+  };
+
+  const handleDeleteConfirm = () => {
+    if (selectedPackageId) {
+      update(selectedPackageId);
+      setShowDeleteModal(false);
+    }
+  };
+
+  const handleDeleteCancel = () => {
+    setShowDeleteModal(false);
   };
 
   const navigateAdd = () => {
@@ -43,6 +60,12 @@ const PackageList: React.FC<PackageListProps> = ({ list, update }) => {
             ))}
           </tbody>
         </table>
+        {showDeleteModal && (
+          <ConfirmationModal
+            onCancel={handleDeleteCancel}
+            onConfirm={handleDeleteConfirm}
+          />
+        )}
       </div>
     </div>
   );
