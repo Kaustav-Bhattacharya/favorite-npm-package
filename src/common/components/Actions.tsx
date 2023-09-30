@@ -10,7 +10,7 @@ interface ViewProps {
   onShow: () => void;
 }
 
-const Veiw: React.FC<ViewProps> = ({ onShow }) => {
+const View: React.FC<ViewProps> = ({ onShow }) => {
   return (
     <img
       src={view}
@@ -42,4 +42,4 @@ const Delete: React.FC<DeleteProps> = ({ onClick }) => {
   );
 };
 
-export { Veiw, Edit, Delete };
+export { View, Edit, Delete };
