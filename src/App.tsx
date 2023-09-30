@@ -2,7 +2,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import "./App.css";
 import { Home } from "./pages/Home/Home";
-import {AddFavorite} from "./pages/AddFavorite";
+import {AddFavorite} from "./pages/add-favorite/AddFavorite";
 
 function App() {
   const router = createBrowserRouter([

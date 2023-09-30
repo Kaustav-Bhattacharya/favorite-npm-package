@@ -1,14 +1,17 @@
 import React, { useState } from "react";
-import { PackageListProps } from "../types";
+import { PackageItem, PackageListProps } from "../types";
 import { PrimaryButton } from "../../../common/components/Buttons";
 import { Delete, Edit, Veiw } from "../../../common/components/Actions";
 import { useNavigate } from "react-router-dom";
-import { ConfirmationModal } from "../../../common/components/ConfirmationModal";
+import { ConfirmationModal } from "../../add-favorite/components/ConfirmationModal";
+import { ViewPackageModal } from "../../add-favorite/components/ViewDetails";
 
 const PackageList: React.FC<PackageListProps> = ({ list, update }) => {
   const navigate = useNavigate();
 
   const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [showViewModal, setShowViewModal] = useState(false);
+  const [selectedPackage, setSelectedPackage] = useState<PackageItem>();
   const [selectedPackageId, setSelectedPackageId] = useState<string | null>(
     null
   );
@@ -33,6 +36,16 @@ const PackageList: React.FC<PackageListProps> = ({ list, update }) => {
     navigate("/add-favorite");
   };
 
+  const onShowDetails = (npmPackage: PackageItem) => {
+    setSelectedPackage(npmPackage);
+    setShowViewModal(true);
+  };
+
+  const onViewModalClose = () => {
+    setSelectedPackage(undefined);
+    setShowViewModal(false);
+  };
+
   return (
     <div className="w-[80vw] m-0">
       <div className="flex flex-row justify-between items-center">
@@ -54,7 +67,7 @@ const PackageList: React.FC<PackageListProps> = ({ list, update }) => {
               <tr key={packageItem._id}>
                 <td className="border p-2 text-left">{packageItem.name}</td>
                 <td className="border p-2 flex flex-row justify-evenly items-center">
-                  <Veiw />
+                  <Veiw onShow={() => onShowDetails(packageItem)} />
                   <Edit />
                   <Delete onClick={() => onDelete(packageItem._id)} />
                 </td>
@@ -66,6 +79,12 @@ const PackageList: React.FC<PackageListProps> = ({ list, update }) => {
           <ConfirmationModal
             onCancel={handleDeleteCancel}
             onConfirm={handleDeleteConfirm}
+          />
+        )}
+        {showViewModal && (
+          <ViewPackageModal
+            packageItem={selectedPackage}
+            onClose={onViewModalClose}
           />
         )}
       </div>

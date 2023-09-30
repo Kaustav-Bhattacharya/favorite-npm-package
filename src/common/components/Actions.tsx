@@ -6,12 +6,17 @@ interface DeleteProps {
   onClick: () => void;
 }
 
-const Veiw: React.FC = () => {
+interface ViewProps {
+  onShow: () => void;
+}
+
+const Veiw: React.FC<ViewProps> = ({ onShow }) => {
   return (
     <img
       src={view}
       alt=""
       className="w-5 h-5 bg-transparent hover:border-none cursor-pointer"
+      onClick={onShow}
     />
   );
 };

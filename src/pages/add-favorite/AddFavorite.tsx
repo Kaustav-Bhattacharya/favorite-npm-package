@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { useDebouncedValue } from "../common/hooks/useDebounce";
+import { useDebouncedValue } from "../../common/hooks/useDebounce";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { DangerButton, PrimaryButton } from "../common/components/Buttons";
-import { PackageItem } from "./Home/types";
-import { Loader } from "../common/components/Loader";
+import { DangerButton, PrimaryButton } from "../../common/components/Buttons";
+import { PackageItem } from "../Home/types";
+import { Loader } from "../../common/components/Loader";
 
 const AddFavorite: React.FC = () => {
   const navigate = useNavigate();
