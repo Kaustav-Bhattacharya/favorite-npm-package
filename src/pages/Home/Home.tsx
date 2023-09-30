@@ -10,19 +10,18 @@ const Home: React.FC = () => {
     return storedData ? JSON.parse(storedData) : [];
   });
 
-  const updateList = (id:string)=>{
-   const updatedList = packageList.filter((item) => item._id !== id);
-   setPackageList(updatedList);
+  const updateList = (id: string) => {
+    const updatedList = packageList.filter((item) => item._id !== id);
+    setPackageList(updatedList);
 
-   localStorage.setItem("FAV_PACKAGE_LIST", JSON.stringify(updatedList));
-  }
+    localStorage.setItem("FAV_PACKAGE_LIST", JSON.stringify(updatedList));
+  };
 
   return packageList.length > 0 ? (
     <PackageList list={packageList} update={updateList} />
   ) : (
     <NoFavs />
   );
-
 };
 
 const NoFavs: React.FC = () => {
@@ -32,7 +31,9 @@ const NoFavs: React.FC = () => {
   };
   return (
     <div className="flex flex-col h-[80vh] w-[80vw] items-center bg-white">
-      <h2 className="text-left pl-4 my-8"><strong>Welcome to Favorite NPM Package</strong></h2>
+      <h2 className="text-left pl-4 my-8">
+        <strong>Welcome to Favorite NPM Package</strong>
+      </h2>
       <div className="border h-[80%] w-[80%] border-black p-4 text-center flex flex-col items-center justify-evenly">
         <p>You do not have any favs yet. Please add</p>
         <PrimaryButton onClick={handleNavigate}>Add Fav</PrimaryButton>

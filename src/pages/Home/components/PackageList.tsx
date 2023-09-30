@@ -1,4 +1,4 @@
-import React , { useState } from "react";
+import React, { useState } from "react";
 import { PackageListProps } from "../types";
 import { PrimaryButton } from "../../../common/components/Buttons";
 import { Delete, Edit, Veiw } from "../../../common/components/Actions";
@@ -9,7 +9,9 @@ const PackageList: React.FC<PackageListProps> = ({ list, update }) => {
   const navigate = useNavigate();
 
   const [showDeleteModal, setShowDeleteModal] = useState(false);
-  const [selectedPackageId, setSelectedPackageId] = useState<string | null>(null);
+  const [selectedPackageId, setSelectedPackageId] = useState<string | null>(
+    null
+  );
 
   const onDelete = (id: string) => {
     setSelectedPackageId(id);

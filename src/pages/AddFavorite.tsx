@@ -6,7 +6,6 @@ import { DangerButton, PrimaryButton } from "../common/components/Buttons";
 import { PackageItem } from "./Home/types";
 import { Loader } from "../common/components/Loader";
 
-
 const AddFavorite: React.FC = () => {
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState("");
@@ -113,7 +112,9 @@ const AddFavorite: React.FC = () => {
         {loading && <Loader />}
         {searchResults.length > 0 ? (
           <div className="mt-10">
-            <p className="text-left"><strong>Search Results:</strong></p>
+            <p className="text-left">
+              <strong>Search Results:</strong>
+            </p>
             <div className="max-h-40 overflow-y-auto mt-2 no-scrollbar">
               {searchResults.map((pkg: any) => (
                 <div
@@ -144,7 +145,9 @@ const AddFavorite: React.FC = () => {
 
         {selectedPackage && (
           <div className="mt-10">
-            <p className="text-left mb-1"><strong>Why is this your favorite?</strong></p>
+            <p className="text-left mb-1">
+              <strong>Why is this your favorite?</strong>
+            </p>
             <textarea
               value={favReason}
               onChange={(e) => setFavReason(e.target.value)}
