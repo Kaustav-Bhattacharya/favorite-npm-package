@@ -1,6 +1,6 @@
 interface PackageListProps {
   list: PackageItem[];
-  update: React.Dispatch<React.SetStateAction<PackageItem[]>>;
+  update: (id: string) => void;
 }
 
 interface PackageItem {

@@ -10,8 +10,17 @@ const Home: React.FC = () => {
     return storedData ? JSON.parse(storedData) : [];
   });
 
+  const updateList = (id:string)=>{
+   // Filter out the item with the specified id and update the state
+   const updatedList = packageList.filter((item) => item._id !== id);
+   setPackageList(updatedList);
+
+   // Update the localStorage to reflect the changes
+   localStorage.setItem("FAV_PACKAGE_LIST", JSON.stringify(updatedList));
+  }
+
   return packageList.length > 0 ? (
-    <PackageList list={packageList} update={setPackageList} />
+    <PackageList list={packageList} update={updateList} />
   ) : (
     <NoFavs />
   );

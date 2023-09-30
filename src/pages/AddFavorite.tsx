@@ -6,7 +6,6 @@ import { DangerButton, PrimaryButton } from "../common/components/Buttons";
 import { PackageItem } from "./Home/types";
 import { Loader } from "../common/components/Loader";
 
-// Define the debounce function
 
 const AddFavorite: React.FC = () => {
   const navigate = useNavigate();
@@ -84,6 +83,7 @@ const AddFavorite: React.FC = () => {
     setSearchResults([]);
 
     alert("Package added to favorites successfully!");
+    navigateHome();
   };
 
   return (
