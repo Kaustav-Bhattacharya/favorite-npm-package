@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { PrimaryButton } from "../../common/components/Buttons";
 import { PackageList } from "./components/PackageList";
 import { PackageItem } from "./types";
@@ -11,11 +11,9 @@ const Home: React.FC = () => {
   });
 
   const updateList = (id:string)=>{
-   // Filter out the item with the specified id and update the state
    const updatedList = packageList.filter((item) => item._id !== id);
    setPackageList(updatedList);
 
-   // Update the localStorage to reflect the changes
    localStorage.setItem("FAV_PACKAGE_LIST", JSON.stringify(updatedList));
   }
 
