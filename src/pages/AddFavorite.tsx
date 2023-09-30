@@ -4,6 +4,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { DangerButton, PrimaryButton } from "../common/components/Buttons";
 import { PackageItem } from "./Home/types";
+import { Loader } from "../common/components/Loader";
 
 // Define the debounce function
 
@@ -13,11 +14,12 @@ const AddFavorite: React.FC = () => {
   const [searchResults, setSearchResults] = useState([]);
   const [selectedPackage, setSelectedPackage] = useState<any>(null);
   const [favReason, setFavReason] = useState("");
-  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
   const { debouncedValue, debouncing } = useDebouncedValue(searchQuery);
 
   const fetchNpmPackages = async () => {
     try {
+      setLoading(true);
       const response = await axios.get(
         `https://api.npms.io/v2/search?q=${debouncedValue}`
       );
@@ -25,10 +27,15 @@ const AddFavorite: React.FC = () => {
         setSearchResults([]);
         setSelectedPackage(null);
         setFavReason("");
-      } else setSearchResults(response.data.results);
-    } catch (error) {
-      setError("Error fetching npm packages.");
+        setLoading(false);
+      } else {
+        setSearchResults(response.data.results);
+        setLoading(false);
+      }
+    } catch (error: any) {
       setSearchResults([]);
+      setLoading(false);
+      alert(error.message);
     }
   };
 
@@ -47,27 +54,34 @@ const AddFavorite: React.FC = () => {
     }
 
     const favPackageListString = localStorage.getItem("FAV_PACKAGE_LIST");
-    const favPackageList = favPackageListString ? JSON.parse(favPackageListString) : [];
-    
-    if (favPackageList.find((pkg: any) => pkg.name === selectedPackage.package.name)) {
+    const favPackageList = favPackageListString
+      ? JSON.parse(favPackageListString)
+      : [];
+
+    if (
+      favPackageList.find(
+        (pkg: any) => pkg.name === selectedPackage.package.name
+      )
+    ) {
       alert("This package is already in your favorites list.");
       return;
     }
 
-    const newFavorite:PackageItem = {
+    const newFavorite: PackageItem = {
       _id: Date.now().toString(),
       name: selectedPackage.package.name,
       description: selectedPackage.package.description,
       npmLink: selectedPackage.package.links.npm,
-      reason:favReason
+      reason: favReason,
     };
 
-    favPackageList.push(newFavorite)
+    favPackageList.push(newFavorite);
     localStorage.setItem("FAV_PACKAGE_LIST", JSON.stringify(favPackageList));
 
-    setError("");
     setFavReason("");
     setSelectedPackage(null);
+    setSearchQuery("");
+    setSearchResults([]);
 
     alert("Package added to favorites successfully!");
   };
@@ -92,7 +106,7 @@ const AddFavorite: React.FC = () => {
           Search
         </PrimaryButton>
       </div>
-
+      {loading && <Loader />}
       {searchResults.length > 0 ? (
         <div className="mt-10">
           <h3 className="text-lg font-semibold text-left">Search Results:</h3>
@@ -116,7 +130,8 @@ const AddFavorite: React.FC = () => {
           )}
         </div>
       ) : (
-        debouncedValue && (
+        debouncedValue &&
+        !loading && (
           <div className="mt-10 text-center transform scale-100 translate-y-0 transition-opacity ease-in duration-500 bg-yellow-100 border border-yellow-300 rounded-lg p-4 animate-fade-in">
             <strong>Found Nothing! Please check spelling or Try again</strong>
           </div>
