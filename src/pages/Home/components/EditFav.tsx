@@ -1,6 +1,5 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import {
   DangerButton,
   PrimaryButton,
@@ -10,9 +9,6 @@ import { useDebouncedValue } from "../../../common/hooks/useDebounce";
 import { EditProps, PackageItem } from "../types";
 
 const EditFav: React.FC<EditProps> = ({ packageItem, onClose, update }) => {
-  const navigate = useNavigate();
-
-  // States
   const [searchQuery, setSearchQuery] = useState<any>(packageItem?.name || "");
   const [searchResults, setSearchResults] = useState<any>([]);
   const [selectedPackage, setSelectedPackage] = useState<any>(null);
