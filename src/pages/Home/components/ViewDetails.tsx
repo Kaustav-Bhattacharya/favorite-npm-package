@@ -1,5 +1,5 @@
 import React from "react";
-import { ViewPackageModalProps } from "../types";
+import { ViewPackageModalProps } from "../../add-favorite/types";
 import { DangerButton } from "../../../common/components/Buttons";
 
 const ViewPackageModal: React.FC<ViewPackageModalProps> = ({

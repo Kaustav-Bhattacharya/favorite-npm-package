@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { PackageItem, PackageListProps } from "../types";
 import { useNavigate } from "react-router-dom";
-import { ConfirmationModal } from "../../add-favorite/components/ConfirmationModal";
-import { ViewPackageModal } from "../../add-favorite/components/ViewDetails";
+import { ConfirmationModal } from "./ConfirmationModal";
+import { ViewPackageModal } from "./ViewDetails";
 import { Delete, Edit, View } from "../../../common/components/Actions";
 import { PrimaryButton } from "../../../common/components/Buttons";
 
