@@ -10,8 +10,7 @@ const Home: React.FC = () => {
     return storedData ? JSON.parse(storedData) : [];
   });
 
-  const updateList = (id: string) => {
-    const updatedList = packageList.filter((item) => item._id !== id);
+  const updateList = (updatedList: PackageItem[]) => {
     setPackageList(updatedList);
 
     localStorage.setItem("FAV_PACKAGE_LIST", JSON.stringify(updatedList));

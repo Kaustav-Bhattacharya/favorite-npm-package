@@ -1,6 +1,6 @@
 interface PackageListProps {
   list: PackageItem[];
-  update: (id: string) => void;
+  update: (updatedList: PackageItem[]) => void;
 }
 
 interface PackageItem {
@@ -11,4 +11,14 @@ interface PackageItem {
   reason: string;
 }
 
-export type { PackageItem, PackageListProps };
+interface EditProps {
+  packageItem: PackageItem | undefined;
+  onClose: () => void;
+  update: (updatedList: PackageItem[]) => void;
+}
+
+interface ViewPackageModalProps {
+  packageItem: PackageItem | undefined;
+  onClose: () => void;
+}
+export type { PackageItem, PackageListProps, EditProps, ViewPackageModalProps };

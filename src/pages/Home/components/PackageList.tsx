@@ -5,12 +5,14 @@ import { ConfirmationModal } from "./ConfirmationModal";
 import { ViewPackageModal } from "./ViewDetails";
 import { Delete, Edit, View } from "../../../common/components/Actions";
 import { PrimaryButton } from "../../../common/components/Buttons";
+import EditFav from "./EditFav";
 
 const PackageList: React.FC<PackageListProps> = ({ list, update }) => {
   const navigate = useNavigate();
 
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [showViewModal, setShowViewModal] = useState(false);
+  const [showEditModal, setShowEditModal] = useState(false);
   const [selectedPackage, setSelectedPackage] = useState<
     PackageItem | undefined
   >();
@@ -25,7 +27,8 @@ const PackageList: React.FC<PackageListProps> = ({ list, update }) => {
 
   const handleDeleteConfirm = () => {
     if (selectedPackageId) {
-      update(selectedPackageId);
+      const updatedList = list.filter((item) => item._id !== selectedPackageId);
+      update(updatedList);
       setShowDeleteModal(false);
     }
   };
@@ -48,13 +51,23 @@ const PackageList: React.FC<PackageListProps> = ({ list, update }) => {
     setShowViewModal(false);
   };
 
+  const onEditModalClose = () => {
+    setSelectedPackage(undefined);
+    setShowEditModal(false);
+  };
+
+  const onViewEditModal = (npmPackage: PackageItem) => {
+    setSelectedPackage(npmPackage);
+    setShowEditModal(true);
+  };
+
   const renderPackageList = () => {
     return list.map((packageItem) => (
       <tr key={packageItem._id}>
         <td className="border p-2 text-left">{packageItem.name}</td>
         <td className="border p-2 flex flex-row justify-evenly items-center">
           <View onClick={() => onShowDetails(packageItem)} />
-          <Edit  onClick={()=>{}}/>
+          <Edit onClick={() => onViewEditModal(packageItem)} />
           <Delete onClick={() => onDelete(packageItem._id)} />
         </td>
       </tr>
@@ -89,6 +102,13 @@ const PackageList: React.FC<PackageListProps> = ({ list, update }) => {
           <ViewPackageModal
             packageItem={selectedPackage}
             onClose={onViewModalClose}
+          />
+        )}
+        {showEditModal && (
+          <EditFav
+            packageItem={selectedPackage}
+            onClose={onEditModalClose}
+            update={update}
           />
         )}
       </div>

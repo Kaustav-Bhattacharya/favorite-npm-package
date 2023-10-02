@@ -1,6 +1,6 @@
 import React from "react";
-import { ViewPackageModalProps } from "../../add-favorite/types";
 import { DangerButton } from "../../../common/components/Buttons";
+import { ViewPackageModalProps } from "../types";
 
 const ViewPackageModal: React.FC<ViewPackageModalProps> = ({
   packageItem,

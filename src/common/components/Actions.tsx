@@ -1,7 +1,6 @@
 import view from "../../assets/icons/eye.png";
 import edit from "../../assets/icons/edit.png";
 import del from "../../assets/icons/delete.png";
-import { PackageItem } from "../../pages/Home/types";
 
 interface ActionProps {
   onClick:React.MouseEventHandler<HTMLImageElement> | undefined;

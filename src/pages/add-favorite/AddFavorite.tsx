@@ -26,6 +26,7 @@ const AddFavorite: React.FC = () => {
         setSelectedPackage(null);
         setFavReason("");
         setLoading(false);
+        setSearchQuery("");
       } else {
         setSearchResults(response.data.results);
         setLoading(false);
@@ -34,6 +35,7 @@ const AddFavorite: React.FC = () => {
       setSearchResults([]);
       setLoading(false);
       alert(error.message);
+      setSearchQuery("");
     }
   };
 
