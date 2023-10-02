@@ -53,8 +53,8 @@ const PackageList: React.FC<PackageListProps> = ({ list, update }) => {
       <tr key={packageItem._id}>
         <td className="border p-2 text-left">{packageItem.name}</td>
         <td className="border p-2 flex flex-row justify-evenly items-center">
-          <View onShow={() => onShowDetails(packageItem)} />
-          <Edit />
+          <View onClick={() => onShowDetails(packageItem)} />
+          <Edit  onClick={()=>{}}/>
           <Delete onClick={() => onDelete(packageItem._id)} />
         </td>
       </tr>

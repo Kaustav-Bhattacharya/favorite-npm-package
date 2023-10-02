@@ -13,5 +13,5 @@ interface PackageItem {
 
 export type {
     PackageItem,
-    ViewPackageModalProps
+    ViewPackageModalProps,
 }
